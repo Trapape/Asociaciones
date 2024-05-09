@@ -1,6 +1,6 @@
 import React from 'react';
 import HeaderComponent from '../components/Layouts/HeaderComponent';
-import AboutComponent from '../components/AboutComponent/AboutComponent';
+import AboutComponent from '../components/Layouts/AboutComponent/AboutComponent';
 import imgAbout from '../assets/img/about.jpg';
 
 const AboutScreen = () => {

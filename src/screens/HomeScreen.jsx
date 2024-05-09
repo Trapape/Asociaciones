@@ -3,9 +3,11 @@ import React from 'react';
 
 import HeaderComponent from '../components/Layouts/HeaderComponent.jsx';
 import ServiceComponent from '../components/HomeComponents/ServiceComponents/ServicesComponent.jsx';
-import AboutComponent from '../components/AboutComponent/AboutComponent.jsx'; 
+import AboutComponent from '../components/Layouts/AboutComponent/AboutComponent.jsx'
 import CardComponent from '../components/HomeComponents/CardComponent/CardComponent.jsx';
 import TestimonialComponent from '../components/HomeComponents/CarrouselCompent/TestimonialComponent.jsx';
+import BlogComponent from '../components/HomeComponents/BlogComponent/BlogComponent.jsx';
+import JoinComponent from '../components/HomeComponents/JoinComponent/JoinComponent.jsx';
 
 //Importacion de Imagenes
 
@@ -14,6 +16,11 @@ import imgRoute from '../assets/img/ServiceMapMexixco.png';
 import imgAbout from '../assets/img/about.jpg';
 import imgCredit from '../assets/img/ImgCredit.png';
 import imgReport from '../assets/img/ImgReport.png';
+import imgTestimonial1 from '../assets/img/testimonial-1.jpg';
+import imgTestimonial2 from '../assets/img/testimonial-2.jpg';
+import imgBlog1 from '../assets/img/blog-1.jpg'
+import imgBlog2 from '../assets/img/blog-2.jpg'
+
 
 const HomeScreen = () => {
     const serviciosData = [
@@ -41,20 +48,26 @@ const HomeScreen = () => {
 
     const testimonials = [
         {
-            imgSrc: "img/testimonial-1.jpg",
+            imgSrc: imgTestimonial1,
             altText: "Client 1",
             name: "Client Name",
             profession: "Profession",
             description: "Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr clita lorem. Dolor ipsum sanct clita",
         },
         {
-            imgSrc: "img/testimonial-1.jpg",
+            imgSrc: imgTestimonial2,
             altText: "Client 1",
             name: "Client Name",
             profession: "Profession",
             description: "Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr clita lorem. Dolor ipsum sanct clita",
         },
-       
+        {
+            imgSrc: imgTestimonial2,
+            altText: "Client 1",
+            name: "Client Name",
+            profession: "Profession",
+            description: "Sed ea amet kasd elitr stet, stet rebum et ipsum est duo elitr clita lorem. Dolor ipsum sanct clita",
+        },
     ];
 
     return (
@@ -104,8 +117,37 @@ const HomeScreen = () => {
                         />
                     </div>
                 </div>
+                 <TestimonialComponent testimonials={testimonials} />
+                </div>
+            <div className="container-fluid pt-5">
+                <div className="container">
+                    <div className="text-center pb-2">
+                        <h6 className="text-primary text-uppercase font-weight-bold">Nuestro Blog</h6>
+                        <h1 className="mb-4">Últimas Entradas</h1>
+                    </div>
+                    <div className="row">
+                        <BlogComponent 
+                            imgSrc={imgBlog1} 
+                            date="01" 
+                            author="Autor del artículo 1" 
+                            category="Categoría 1" 
+                            title="Título de la entrada del blog 1" 
+                            description="Descripción del artículo 1." 
+                            link="link-del-artículo-1" 
+                        />
+                        <BlogComponent 
+                            imgSrc={imgBlog2} 
+                            date="02" 
+                            author="Autor del artículo 2" 
+                            category="Categoría 2" 
+                            title="Título de la entrada del blog 2" 
+                            description="Descripción del artículo 2." 
+                            link="link-del-artículo-2" 
+                        />
+                    </div>
+                 </div>
             </div>
-            <TestimonialComponent testimonials={testimonials} />
+            <JoinComponent/>
         </div>
     );
 }
