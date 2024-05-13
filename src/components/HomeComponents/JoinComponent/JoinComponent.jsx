@@ -1,6 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { app, firestore } from '../../../config/firebase.js';
+import { collection, addDoc } from 'firebase/firestore';
 
 const JoinComponent = () => {
+    const [formState, setFormState] = useState({
+        nombre: '',
+        cargo: '',
+        compañia: '',
+        telefono: '',
+        email: '',
+        ciudad: '',
+        motivo: '',
+        servicio: ''
+    });
+
+    const handleInputChange = (event) => {
+        setFormState({
+            ...formState,
+            [event.target.name]: event.target.value
+        });
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        // Crear un nuevo usuario con los datos del formulario
+        const user = {
+            nombre: formState.nombre,
+            cargo: formState.cargo,
+            compañia: formState.compañia,
+            telefono: formState.telefono,
+            email: formState.email,
+            ciudad: formState.ciudad,
+            motivo: formState.motivo,
+            servicio: formState.servicio
+        };
+
+        // Enviar el nuevo usuario a Firestore
+        try {
+            const docRef = await addDoc(collection(firestore, 'usuarios'), user);
+            alert('¡Información enviada con éxito! ID del documento: ' + docRef.id);
+        } catch (error) {
+            alert(`Ocurrió un error al enviar la información: ${error}`);
+        }
+
+        // Limpiar el estado del formulario
+        setFormState({
+            nombre: '',
+            cargo: '',
+            compañia: '',
+            telefono: '',
+            email: '',
+            ciudad: '',
+            motivo: '',
+            servicio: ''
+        });
+    };
+
     return (
         <div className="container-fluid bg-secondary my-5">
             <div className="container">
@@ -26,41 +82,37 @@ const JoinComponent = () => {
                     </div>
                     <div className="col-lg-5">
                         <div className="bg-primary py-5 px-4 px-sm-5">
-                            <form className="py-5">
+                            <form className="py-5" onSubmit={handleSubmit}>
                                 <div className="form-group">
-                                    <input type="text" className="form-control border-0 p-4" placeholder="Nombre del Interesado" required />
+                                    <input type="text" name="nombre" className="form-control border-0 p-4" placeholder="Nombre del Interesado" value={formState.nombre} onChange={handleInputChange} required />
                                 </div>
-
                                 <div className="form-group">
-                                    <input type="text" className="form-control border-0 p-4" placeholder="Cargo o Puesto de la Persona" required />
+                                    <input type="text" name="cargo" className="form-control border-0 p-4" placeholder="Cargo o Puesto de la Persona" value={formState.cargo} onChange={handleInputChange} required />
                                 </div>
-
                                 <div className="form-group">
-                                    <input type="text" className="form-control border-0 p-4" placeholder="Compañía" required />
+                                    <input type="text" name="compañia" className="form-control border-0 p-4" placeholder="Compañía" value={formState.compañia} onChange={handleInputChange} required />
                                 </div>
-
                                 <div className="form-group">
-                                    <input type="tel" className="form-control border-0 p-4" placeholder="Teléfono" required />
+                                    <input type="tel" name="telefono" className="form-control border-0 p-4" placeholder="Teléfono" value={formState.telefono} onChange={handleInputChange} required />
                                 </div>
-
                                 <div className="form-group">
-                                    <input type="email" className="form-control border-0 p-4" placeholder="Correo Electrónico" required />
+                                    <input type="email" name="email" className="form-control border-0 p-4" placeholder="Correo Electrónico" value={formState.email} onChange={handleInputChange} required />   
+                                  </div>  
+                                 <div className="form-group">
+                                    <input type="email" name="email" className="form-control border-0 p-4" placeholder="Correo Electrónico" value={formState.email} onChange={handleInputChange} required />
                                 </div>
-
                                 <div className="form-group">
-                                    <input type="text" className="form-control border-0 p-4" placeholder="Ciudad que Desea Localizar" required />
+                                    <input type="text" name="ciudad" className="form-control border-0 p-4" placeholder="Ciudad que Desea Localizar" value={formState.ciudad} onChange={handleInputChange} required />
                                 </div>
-
                                 <div className="form-group">
-                                    <textarea className="form-control border-0 p-4" placeholder="Motivo" required></textarea>
+                                    <textarea name="motivo" className="form-control border-0 p-4" placeholder="Motivo" value={formState.motivo} onChange={handleInputChange} required></textarea>
                                 </div>
-
                                 <div className="form-group">
-                                    <select className="custom-select border-0 px-4" style={{height: '47px'}}>
+                                    <select name="servicio" className="custom-select border-0 px-4" style={{height: '47px'}} value={formState.servicio} onChange={handleInputChange}>
                                         <option selected>Selecciona un Servicio</option>
-                                        <option value="1">Delegado</option>
-                                        <option value="2">Cliente</option>
-                                        <option value="3">Afiliado</option>
+                                        <option value="Delegado">Delegado</option>
+                                        <option value="Cliente">Cliente</option>
+                                        <option value="Afiliado">Afiliado</option>
                                     </select>
                                 </div>
                                 <div>
