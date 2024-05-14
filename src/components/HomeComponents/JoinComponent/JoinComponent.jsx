@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { app, firestore } from '../../../config/firebase.js';
-import { collection, addDoc } from 'firebase/firestore';
 
 const JoinComponent = () => {
     const [formState, setFormState] = useState({
@@ -21,28 +19,12 @@ const JoinComponent = () => {
         });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
-        // Crear un nuevo usuario con los datos del formulario
-        const user = {
-            nombre: formState.nombre,
-            cargo: formState.cargo,
-            compañia: formState.compañia,
-            telefono: formState.telefono,
-            email: formState.email,
-            ciudad: formState.ciudad,
-            motivo: formState.motivo,
-            servicio: formState.servicio
-        };
-
-        // Enviar el nuevo usuario a Firestore
-        try {
-            const docRef = await addDoc(collection(firestore, 'usuarios'), user);
-            alert('¡Información enviada con éxito! ID del documento: ' + docRef.id);
-        } catch (error) {
-            alert(`Ocurrió un error al enviar la información: ${error}`);
-        }
+        // Aquí puedes realizar cualquier acción que desees con los datos del formulario,
+        // pero no se enviarán a Firestore como en la versión original.
+        // Por ejemplo, podrías mostrar los datos en la consola o realizar alguna acción local.
 
         // Limpiar el estado del formulario
         setFormState({
@@ -96,9 +78,6 @@ const JoinComponent = () => {
                                     <input type="tel" name="telefono" className="form-control border-0 p-4" placeholder="Teléfono" value={formState.telefono} onChange={handleInputChange} required />
                                 </div>
                                 <div className="form-group">
-                                    <input type="email" name="email" className="form-control border-0 p-4" placeholder="Correo Electrónico" value={formState.email} onChange={handleInputChange} required />   
-                                  </div>  
-                                 <div className="form-group">
                                     <input type="email" name="email" className="form-control border-0 p-4" placeholder="Correo Electrónico" value={formState.email} onChange={handleInputChange} required />
                                 </div>
                                 <div className="form-group">
