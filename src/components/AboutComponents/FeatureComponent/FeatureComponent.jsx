@@ -19,7 +19,7 @@ const FeaturesComponent = ({ imgSrc, title, subtitle, description, listItems, bu
                                 <li key={index}><h6><i className="far fa-dot-circle text-primary mr-3"></i>{item}</h6></li>
                             ))}
                         </ul>
-                        <a href="" className="btn btn-primary mt-3 py-2 px-4">{buttonText}</a>
+                     
                     </div>
                 </div>
             </div>

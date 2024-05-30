@@ -13,11 +13,8 @@ const BlogComponent = ({ imgSrc, date, author, category, title, description, lin
                 </div>
             </div>
             <div className="bg-secondary" style={{ padding: '30px' }}>
-                <div className="d-flex mb-3">
-                    <div className="d-flex align-items-center">
-                        <img className="rounded-circle" style={{ width: '40px', height: '40px' }} src={userImg} alt="" />
-                        <a className="text-muted ml-2" href="">{author}</a>
-                    </div>                    <div className="d-flex align-items-center ml-4">
+                <div className="d-flex mb-3">                     
+                    <div className="d-flex align-items-center ml-1">
                         <i className="far fa-bookmark text-primary"></i>
                         <a className="text-muted ml-2" href="">{category}</a>
                     </div>

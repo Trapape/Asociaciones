@@ -91,7 +91,7 @@ const JoinComponent = () => {
                                         <option selected>Selecciona un Servicio</option>
                                         <option value="Delegado">Delegado</option>
                                         <option value="Cliente">Cliente</option>
-                                        <option value="Afiliado">Afiliado</option>
+                                        <option value="Afiliado">Afiliado (Hombre Camion)</option>
                                     </select>
                                 </div>
                                 <div>

@@ -18,8 +18,8 @@ import imgCredit from '../assets/img/ImgCredit.png';
 import imgReport from '../assets/img/ImgReport.png';
 import imgTestimonial1 from '../assets/img/testimonial-1.jpg';
 import imgTestimonial2 from '../assets/img/testimonial-2.jpg';
-import imgBlog1 from '../assets/img/blog-1.jpg'
-import imgBlog2 from '../assets/img/blog-2.jpg'
+import imgBlog1 from '../assets/img/blog.jpg'
+import imgBlog2 from '../assets/img/blog2.png'
 
 
 const HomeScreen = () => {
@@ -82,7 +82,7 @@ const HomeScreen = () => {
                 title="La Asociación de Transportistas A.T."
                 subtitle="Sobre Nosotros"
                 description="Es una asociación que representa los intereses de los trabajadores del transporte en México. Esta organización desempeña un papel crucial en el ámbito del transporte al abogar por los derechos y el bienestar de los transportistas, así como al tratar de influir en la política y la regulación relacionadas con la industria del transporte en el país."
-                videoSrc="https://www.youtube.com/watch?v=WUXWWTl8fjI"
+                videoSrc='https://www.youtube.com/watch?v=WUXWWTl8fjI'
             />
             <div className="container-fluid pt-4">
                 <div className="container">
@@ -118,7 +118,7 @@ const HomeScreen = () => {
                     </div>
                 </div>
                  <TestimonialComponent testimonials={testimonials} />
-                </div>
+                </div><br/>
             <div className="container-fluid pt-5">
                 <div className="container">
                     <div className="text-center pb-2">
@@ -129,8 +129,7 @@ const HomeScreen = () => {
                         <BlogComponent 
                             imgSrc={imgBlog1} 
                             date="01" 
-                            author="Autor del artículo 1" 
-                            category="Categoría 1" 
+                            category="Zona Noroeste" 
                             title="Título de la entrada del blog 1" 
                             description="Descripción del artículo 1." 
                             link="link-del-artículo-1" 
@@ -138,8 +137,7 @@ const HomeScreen = () => {
                         <BlogComponent 
                             imgSrc={imgBlog2} 
                             date="02" 
-                            author="Autor del artículo 2" 
-                            category="Categoría 2" 
+                            category="Zona Sur" 
                             title="Título de la entrada del blog 2" 
                             description="Descripción del artículo 2." 
                             link="link-del-artículo-2" 
