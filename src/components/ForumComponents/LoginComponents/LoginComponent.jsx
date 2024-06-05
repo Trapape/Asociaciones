@@ -1,5 +1,7 @@
 import React from 'react';
-import './LoginComponent.css'; // Importa tu archivo CSS aquí
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import '../LoginComponents/LoginComponent.css';
 
 const LoginComponent = () => {
   return (
@@ -7,7 +9,7 @@ const LoginComponent = () => {
       <div className="container py-5 h-100">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-xl-10">
-            <div className="card rounded-3 text-black">
+            <div className="card rounded-3 text-black" style={{ borderRadius: '20px' }}>
               <div className="row g-0">
                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
@@ -50,8 +52,17 @@ const LoginComponent = () => {
                         <button
                           className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
                           type="button"
+                          style={{ borderRadius: '20px' }}
                         >
                           Ingresar
+                        </button>
+                        <button
+                          className="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                          type="button"
+                          style={{ borderRadius: '20px' }}
+                        >
+                          <FontAwesomeIcon icon={faGoogle} className="mr-2" />
+                          Iniciar sesión con Google
                         </button>
                       </div>
                     </form>
