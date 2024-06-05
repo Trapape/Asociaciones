@@ -1,33 +1,8 @@
-import React, { useState } from 'react';
+    import React, { useState } from 'react';
+    import emailjs from 'emailjs-com';
 
-const JoinComponent = () => {
-    const [formState, setFormState] = useState({
-        nombre: '',
-        cargo: '',
-        compañia: '',
-        telefono: '',
-        email: '',
-        ciudad: '',
-        motivo: '',
-        servicio: ''
-    });
-
-    const handleInputChange = (event) => {
-        setFormState({
-            ...formState,
-            [event.target.name]: event.target.value
-        });
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        // Aquí puedes realizar cualquier acción que desees con los datos del formulario,
-        // pero no se enviarán a Firestore como en la versión original.
-        // Por ejemplo, podrías mostrar los datos en la consola o realizar alguna acción local.
-
-        // Limpiar el estado del formulario
-        setFormState({
+    const JoinComponent = () => {
+        const [formState, setFormState] = useState({
             nombre: '',
             cargo: '',
             compañia: '',
@@ -37,7 +12,52 @@ const JoinComponent = () => {
             motivo: '',
             servicio: ''
         });
-    };
+
+        const handleInputChange = (event) => {
+            setFormState({
+                ...formState,
+                [event.target.name]: event.target.value
+            });
+        };
+
+        const handleSubmit = (event) => {
+            event.preventDefault();
+
+            // Configurar tu USER_ID, SERVICE_ID y TEMPLATE_ID obtenidos de EmailJS
+            const USER_ID = 'V_Ks9rQsra9FFD6_i';
+            const SERVICE_ID = 'service_of6qa3s';
+            const TEMPLATE_ID = 'template_2ln3pz5';
+
+            // Enviar el formulario a EmailJS
+            emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+                nombre: formState.nombre,
+                cargo: formState.cargo,
+                compañia: formState.compañia,
+                telefono: formState.telefono,
+                email: formState.email,
+                ciudad: formState.ciudad,
+                motivo: formState.motivo,
+                servicio: formState.servicio
+            }, USER_ID)
+            .then((response) => {
+                console.log('SUCCESS!', response.status, response.text);
+            })
+            .catch((error) => {
+                console.log('FAILED...', error);
+            });
+
+            // Limpiar el estado del formulario
+            setFormState({
+                nombre: '',
+                cargo: '',
+                compañia: '',
+                telefono: '',
+                email: '',
+                ciudad: '',
+                motivo: '',
+                servicio: ''
+            });
+        };
 
     return (
         <div className="container-fluid bg-secondary my-5">
@@ -87,8 +107,8 @@ const JoinComponent = () => {
                                     <textarea name="motivo" className="form-control border-0 p-4" placeholder="Motivo" value={formState.motivo} onChange={handleInputChange} required></textarea>
                                 </div>
                                 <div className="form-group">
-                                    <select name="servicio" className="custom-select border-0 px-4" style={{height: '47px'}} value={formState.servicio} onChange={handleInputChange}>
-                                        <option selected>Selecciona un Servicio</option>
+                                    <select name="servicio" className="custom-select border-0 px-4" style={{ height: '47px' }} value={formState.servicio} onChange={handleInputChange}>
+                                        <option value="" disabled>Selecciona un Servicio</option>
                                         <option value="Delegado">Delegado</option>
                                         <option value="Cliente">Cliente</option>
                                         <option value="Afiliado">Afiliado (Hombre Camion)</option>

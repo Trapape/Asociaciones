@@ -8,6 +8,7 @@ import CardComponent from '../components/HomeComponents/CardComponent/CardCompon
 import TestimonialComponent from '../components/HomeComponents/CarrouselCompent/TestimonialComponent.jsx';
 import BlogComponent from '../components/HomeComponents/BlogComponent/BlogComponent.jsx';
 import JoinComponent from '../components/HomeComponents/JoinComponent/JoinComponent.jsx';
+import ScrollButtonComponent from '../components/Layouts/ScrollButton/ScrollButtonComponent.jsx';
 
 //Importacion de Imagenes
 
@@ -20,6 +21,7 @@ import imgTestimonial1 from '../assets/img/testimonial-1.jpg';
 import imgTestimonial2 from '../assets/img/testimonial-2.jpg';
 import imgBlog1 from '../assets/img/blog.jpg'
 import imgBlog2 from '../assets/img/blog2.png'
+
 
 
 const HomeScreen = () => {
@@ -146,6 +148,7 @@ const HomeScreen = () => {
                  </div>
             </div>
             <JoinComponent/>
+            <ScrollButtonComponent/>
         </div>
     );
 }

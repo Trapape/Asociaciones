@@ -1,12 +1,59 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMapMarkerAlt, faPhoneAlt, faEnvelope } from '@fortawesome/free-solid-svg-icons';
-
-
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 const FooterComponent = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', toggleVisibility);
+
+    return () => {
+      window.removeEventListener('scroll', toggleVisibility);
+    };
+  }, []);
+
+  const toggleVisibility = () => {
+    if (window.pageYOffset > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <>
+      {/* Botón flotante */}
+      {isVisible && (
+        <button 
+          className="scroll-to-top-btn" 
+          onClick={scrollToTop}
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            zIndex: '9999',
+            backgroundColor: '#007bff',
+            color: '#fff',
+            borderRadius: '50%',
+            border: 'none',
+            width: '50px',
+            height: '50px',
+            fontSize: '24px',
+            cursor: 'pointer'
+          }}
+        >
+          <FontAwesomeIcon icon={faArrowUp} />
+        </button>
+      )}
       {/* Sección de contacto */}
       <div className="container-fluid bg-dark text-white mt-5 py-5 px-sm-3 px-md-5">
         <div className="row pt-5">
@@ -48,8 +95,7 @@ const FooterComponent = () => {
           </div>
         </div>
       </div>
-      {/* Regresar al Principio */}
-      <a href="#" className="btn btn-lg btn-primary back-to-top"><i className="fa fa-angle-double-up"></i></a>
+     
     </>
   );
 }
