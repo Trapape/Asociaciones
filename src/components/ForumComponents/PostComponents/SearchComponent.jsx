@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Post from './PostComponents.jsx';
-import img from '../../../assets/img/user.jpg'; // Si img no se utiliza, puedes eliminar esta línea.
+import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 
 const SearchComponent = () => {
+  const [posts, setPosts] = useState([]);
+  const db = getFirestore();
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, 'posts'), (snapshot) => {
+      const postsData = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setPosts(postsData);
+    });
+
+    return () => unsubscribe();
+  }, [db]);
+
   return (
     <div className="container py-5">
       <div className="row">
@@ -12,7 +27,16 @@ const SearchComponent = () => {
               Destacados 
             </div>
           </h2>
-          <Post />
+          {posts.map(post => (
+            <Post 
+              key={post.id}
+              title={post.title}
+              body={post.body}
+              imageUrl={post.imageUrl}
+              createdAt={post.createdAt}
+              author={post.author}
+            />
+          ))}
         </div>
         <div className="col-lg-4 mt-5 mt-lg-0">
           <div className="mb-5">

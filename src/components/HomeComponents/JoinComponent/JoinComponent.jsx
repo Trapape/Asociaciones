@@ -1,63 +1,65 @@
-    import React, { useState } from 'react';
-    import emailjs from 'emailjs-com';
+import React, { useState } from 'react';
+import emailjs from 'emailjs-com';
+import { Alert } from 'react-bootstrap'; // Importar Alert de react-bootstrap
 
-    const JoinComponent = () => {
-        const [formState, setFormState] = useState({
+const JoinComponent = () => {
+    const [formState, setFormState] = useState({
+        nombre: '',
+        cargo: '',
+        asociacion: '',
+        telefono: '',
+        email: '',
+        ciudad: '',
+        motivo: '',
+        servicio: ''
+    });
+
+    const [submitStatus, setSubmitStatus] = useState(null);
+
+    const handleInputChange = (event) => {
+        setFormState({
+            ...formState,
+            [event.target.name]: event.target.value
+        });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        const USER_ID = 'V_Ks9rQsra9FFD6_i';
+        const SERVICE_ID = 'service_of6qa3s';
+        const TEMPLATE_ID = 'template_2ln3pz5';
+
+        emailjs.send(SERVICE_ID, TEMPLATE_ID, {
+            nombre: formState.nombre,
+            cargo: formState.cargo,
+            asociacion: formState.asociacion,
+            telefono: formState.telefono,
+            email: formState.email,
+            ciudad: formState.ciudad,
+            motivo: formState.motivo,
+            servicio: formState.servicio
+        }, USER_ID)
+        .then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
+            setSubmitStatus('success');
+        })
+        .catch((error) => {
+            console.log('FAILED...', error);
+            setSubmitStatus('error');
+        });
+
+        setFormState({
             nombre: '',
             cargo: '',
-            compañia: '',
+            asociacion: '',
             telefono: '',
             email: '',
             ciudad: '',
             motivo: '',
             servicio: ''
         });
-
-        const handleInputChange = (event) => {
-            setFormState({
-                ...formState,
-                [event.target.name]: event.target.value
-            });
-        };
-
-        const handleSubmit = (event) => {
-            event.preventDefault();
-
-            // Configurar tu USER_ID, SERVICE_ID y TEMPLATE_ID obtenidos de EmailJS
-            const USER_ID = 'V_Ks9rQsra9FFD6_i';
-            const SERVICE_ID = 'service_of6qa3s';
-            const TEMPLATE_ID = 'template_2ln3pz5';
-
-            // Enviar el formulario a EmailJS
-            emailjs.send(SERVICE_ID, TEMPLATE_ID, {
-                nombre: formState.nombre,
-                cargo: formState.cargo,
-                compañia: formState.compañia,
-                telefono: formState.telefono,
-                email: formState.email,
-                ciudad: formState.ciudad,
-                motivo: formState.motivo,
-                servicio: formState.servicio
-            }, USER_ID)
-            .then((response) => {
-                console.log('SUCCESS!', response.status, response.text);
-            })
-            .catch((error) => {
-                console.log('FAILED...', error);
-            });
-
-            // Limpiar el estado del formulario
-            setFormState({
-                nombre: '',
-                cargo: '',
-                compañia: '',
-                telefono: '',
-                email: '',
-                ciudad: '',
-                motivo: '',
-                servicio: ''
-            });
-        };
+    };
 
     return (
         <div className="container-fluid bg-secondary my-5">
@@ -92,7 +94,7 @@
                                     <input type="text" name="cargo" className="form-control border-0 p-4" placeholder="Cargo o Puesto de la Persona" value={formState.cargo} onChange={handleInputChange} required />
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" name="compañia" className="form-control border-0 p-4" placeholder="Compañía" value={formState.compañia} onChange={handleInputChange} required />
+                                    <input type="text" name="asociacion" className="form-control border-0 p-4" placeholder="Compañía" value={formState.asociacion} onChange={handleInputChange} required />
                                 </div>
                                 <div className="form-group">
                                     <input type="tel" name="telefono" className="form-control border-0 p-4" placeholder="Teléfono" value={formState.telefono} onChange={handleInputChange} required />
@@ -122,6 +124,13 @@
                     </div>
                 </div>
             </div>
+            {/* Alertas de Bootstrap */}
+            <Alert show={submitStatus === 'success'} variant="success" className="floating-alert">
+                El formulario se envió exitosamente.
+            </Alert>
+            <Alert show={submitStatus === 'error'} variant="danger" className="floating-alert">
+                Ocurrió un error al enviar el formulario. Por favor, inténtalo de nuevo más tarde.
+            </Alert>
         </div>
     );
 };

@@ -4,9 +4,11 @@
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ 
  */
+ 
  :root {
-  --blue: #007bff;
+  --blue: #347AB6;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -9541,6 +9543,7 @@ p,
   text-align: center;
   border-radius: 36px;
 }
+
 
 .back-to-top {
   position: fixed;

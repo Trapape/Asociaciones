@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import HeaderComponent from '../components/Layouts/HeaderComponent';
-import ModalComponent from '../components/ForumComponents/ModalComponent/ModalComponent.jsx';
+import LoginModalComponent from '../components/ForumComponents/LoginModalComponent/LoginModalComponent.jsx';
 import AllPostComponent from '../components/ForumComponents/PostComponents/AllPostComponents.jsx';
-import CreatePostScreen from '../screens/CreatePostScreen.jsx'; 
-import LoginComponent from '../components/ForumComponents/LoginComponents/LoginComponent.jsx';
+import { signOutUser } from '../../backend/firebaseconfig.js'; 
+import CreatePostModal from '../components/ForumComponents/PostComponents/CreatePost/CreatePostModal.jsx';
 
 const ForumScreen = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(true);
   const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const handleCloseLoginModal = () => {
     setLoginModalOpen(false);
@@ -21,10 +22,23 @@ const ForumScreen = () => {
     setCreatePostModalOpen(false);
   };
 
-  useEffect(() => {
-    // Abre el modal cuando se carga el componente
-    setLoginModalOpen(true);
-  }, []);
+  const handlePostPublish = (success, message) => {
+    setAlertMessage(message);
+    if (success) {
+      handleCloseCreatePostModal();
+    }
+    setTimeout(() => setAlertMessage(''), 3000); // Clear the message after 3 seconds
+  };
+
+  const handleLogout = () => {
+    signOutUser()
+      .then(() => {
+        setLoginModalOpen(true);
+      })
+      .catch((error) => {
+        console.error('Error al cerrar sesión:', error);
+      });
+  };
 
   return (
     <div className="forum-container">
@@ -39,23 +53,40 @@ const ForumScreen = () => {
       </div>
 
       {isLoginModalOpen && (
-        <ModalComponent isOpen={isLoginModalOpen} onClose={handleCloseLoginModal}>
-          <LoginComponent />
-        </ModalComponent>
+        <LoginModalComponent isOpen={isLoginModalOpen} onClose={handleCloseLoginModal} />
       )}
 
       {isCreatePostModalOpen && (
-        <ModalComponent isOpen={isCreatePostModalOpen} onClose={handleCloseCreatePostModal}>
-          <CreatePostScreen />
-        </ModalComponent>
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <button className="close-button" onClick={handleCloseCreatePostModal}>Cerrar</button>
+            <CreatePostModal onClose={handlePostPublish} />
+          </div>
+        </div>
       )}
 
-      <div style={{ position: 'fixed', bottom: '20px', right: '20px' }}>
+      {alertMessage && (
+        <div className="alert">
+          {alertMessage}
+        </div>
+      )}
+
+      <div style={{ position: 'fixed', bottom: '20px', right: '1870px' }}>
         <button
           className="btn btn-primary btn-lg rounded-circle"
           type="button"
-          style={{ width: '60px', height: '60px' }}>
+          style={{ width: '60px', height: '60px', marginRight: '10px' }}
+          onClick={handleOpenCreatePostModal}
+        >
           <span aria-hidden="true">+</span>
+        </button>
+        <button
+          className="btn btn-danger btn-lg rounded-circle"
+          type="button"
+          style={{ width: '60px', height: '60px' }}
+          onClick={handleLogout}
+        >
+          <span aria-hidden="true">x</span>
         </button>
       </div>
     </div>

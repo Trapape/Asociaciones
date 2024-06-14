@@ -8,7 +8,6 @@ import CardComponent from '../components/HomeComponents/CardComponent/CardCompon
 import TestimonialComponent from '../components/HomeComponents/CarrouselCompent/TestimonialComponent.jsx';
 import BlogComponent from '../components/HomeComponents/BlogComponent/BlogComponent.jsx';
 import JoinComponent from '../components/HomeComponents/JoinComponent/JoinComponent.jsx';
-import ScrollButtonComponent from '../components/Layouts/ScrollButton/ScrollButtonComponent.jsx';
 
 //Importacion de Imagenes
 
@@ -148,7 +147,6 @@ const HomeScreen = () => {
                  </div>
             </div>
             <JoinComponent/>
-            <ScrollButtonComponent/>
         </div>
     );
 }

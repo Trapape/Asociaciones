@@ -48,19 +48,19 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse justify-content-between px-lg-5" id="navbarCollapse">
           <div className="navbar-nav m-0 py-0">
-            <NavLink to="/" exact className="nav-item nav-link" activeClassName="active">
+            <NavLink to="/" exact className="nav-item nav-link" activeclassname="active">
               Inicio
             </NavLink>
-            <NavLink to="/About" className="nav-item nav-link" activeClassName="active">
+            <NavLink to="/About" className="nav-item nav-link" activeclassname="active">
               Quiénes Somos
             </NavLink>
-            <NavLink to="/Service" className="nav-item nav-link" activeClassName="active">
+            <NavLink to="/Service" className="nav-item nav-link" activeclassname="active">
               ¿Buscas hombres camión?
             </NavLink>
-            <NavLink to="/Forum" className="nav-item nav-link" activeClassName="active">
+            <NavLink to="/Forum" className="nav-item nav-link" activeclassname="active">
               Buro de clientes
             </NavLink>
-            <NavLink to="/Contact" className="nav-item nav-link" activeClassName="active">
+            <NavLink to="/Contact" className="nav-item nav-link" activeclassname="active">
               Contacto
             </NavLink>
           </div>

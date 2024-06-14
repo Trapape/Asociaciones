@@ -33,8 +33,8 @@ const AboutScreen = () => {
         description="[Nombre de la Asociación] se destaca por más de 25 años de experiencia en el sector logístico. Nuestra misión es ofrecer soluciones de transporte innovadoras y eficientes, comprometiéndonos con la excelencia y la sostenibilidad. La visión de nuestra asociación es ser líderes en logística, ampliando nuestras fronteras y estableciendo estándares de alta calidad en el servicio. Valoramos la seguridad, la confiabilidad y la atención personalizada a cada uno de nuestros clientes."
         videoSrc="https://www.youtube.com/watch?v=WUXWWTl8fjI" 
         />
-    <div class="container-fluid bg-secondary my-5">
-        <div class="container">
+    <div className="container-fluid bg-secondary my-5">
+        <div className="container">
         <FeaturesComponent 
             imgSrc={imgFeature}
             title="Por Qué Elegirnos"
@@ -81,7 +81,7 @@ const AboutScreen = () => {
                 />
                 <TeamComponent
                     name="Sofía López"
-                    role="Delegada de la Zona Occidental (Guadalajara, Jalisco)"
+                    role="Delegada de la Zona Occidental (Guadalajara)"
                     imgSrc={imgTeam3}
                     socialLinks={[
                     { platform: 'twitter', url: '#' },
@@ -92,7 +92,7 @@ const AboutScreen = () => {
                 />
                 <TeamComponent
                     name="Luis Hernández"
-                    role="Delegado de la Zona Oriental (Veracruz, Veracruz)"
+                    role="Delegado de la Zona Oriental (Veracruz)"
                     imgSrc={imgTeam4}
                     socialLinks={[
                     { platform: 'twitter', url: '#' },
