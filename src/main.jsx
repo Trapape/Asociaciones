@@ -8,8 +8,8 @@ import { UserProvider } from '../backend/config/UserContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <UserProvider>
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </UserProvider>
 );
