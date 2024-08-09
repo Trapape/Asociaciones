@@ -1,5 +1,7 @@
 import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';  // Importar Firebase Storage y funciones adicionales
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -10,19 +12,31 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Inicializar Firebase solo si no hay aplicaciones inicializadas
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApps()[0];
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
+const db = getFirestore(app);
+const storage = getStorage(app);  // Inicializar Firebase Storage
 
 const signInWithGoogle = () => {
   return signInWithPopup(auth, provider)
     .then((result) => {
-      return result.user; // Retorna el usuario
+      return result.user;
     })
     .catch((error) => {
       console.error(error);
-      throw error; // Lanza el error para que pueda ser capturado en el .catch() del componente
+      throw error;
+    });
+};
+
+const signInWithEmail = (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password)
+    .then((result) => {
+      return result.user;
+    })
+    .catch((error) => {
+      console.error(error);
+      throw error;
     });
 };
 
@@ -37,4 +51,26 @@ const signOutUser = () => {
     });
 };
 
-export { signInWithGoogle, signOutUser };
+const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        resolve(user);
+      } else {
+        resolve(null);
+      }
+    });
+  });
+};
+
+// Función para subir una imagen a Firebase Storage y obtener la URL de descarga
+const uploadImage = async (file) => {
+  if (!file) return null;
+
+  const storageRef = ref(storage, `images/${file.name}`);
+  await uploadBytes(storageRef, file);
+  const imageUrl = await getDownloadURL(storageRef);
+  return imageUrl;
+};
+
+export { signInWithGoogle, signInWithEmail, signOutUser, getCurrentUser, db, storage, uploadImage };

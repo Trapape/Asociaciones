@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import HeaderComponent from '../components/Layouts/HeaderComponent';
 import LoginModalComponent from '../components/ForumComponents/LoginModalComponent/LoginModalComponent.jsx';
 import AllPostComponent from '../components/ForumComponents/PostComponents/AllPostComponents.jsx';
 import { signOutUser } from '../../backend/firebaseconfig.js'; 
 import CreatePostModal from '../components/ForumComponents/PostComponents/CreatePost/CreatePostModal.jsx';
+import { UserContext } from '../../backend/config/UserContext';
 
 const ForumScreen = () => {
-  const [isLoginModalOpen, setLoginModalOpen] = useState(true);
+  const { user } = useContext(UserContext);
+  const [isLoginModalOpen, setLoginModalOpen] = useState(!user);
   const [isCreatePostModalOpen, setCreatePostModalOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState('');
 
@@ -59,7 +61,9 @@ const ForumScreen = () => {
       {isCreatePostModalOpen && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <button className="close-button" onClick={handleCloseCreatePostModal}>Cerrar</button>
+            <button className="btn btn-secondary rounded-circle close-button"
+              style={{ width: '50px', height: '50px', marginRight: '1px' }}
+            onClick={handleCloseCreatePostModal}>X</button>
             <CreatePostModal onClose={handlePostPublish} />
           </div>
         </div>
@@ -71,7 +75,7 @@ const ForumScreen = () => {
         </div>
       )}
 
-      <div style={{ position: 'fixed', bottom: '20px', right: '1870px' }}>
+      <div style={{ position: 'fixed', bottom: '20px', left: '20px' }}>
         <button
           className="btn btn-primary btn-lg rounded-circle"
           type="button"
@@ -80,14 +84,7 @@ const ForumScreen = () => {
         >
           <span aria-hidden="true">+</span>
         </button>
-        <button
-          className="btn btn-danger btn-lg rounded-circle"
-          type="button"
-          style={{ width: '60px', height: '60px' }}
-          onClick={handleLogout}
-        >
-          <span aria-hidden="true">x</span>
-        </button>
+
       </div>
     </div>
   );
