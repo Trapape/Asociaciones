@@ -129,7 +129,7 @@ const ServiceScreen = () => {
         setFilteredTransportistas(filtered);
     };
 
-    const isAuthorized = currentUser && (currentUser.email === 'rangel.crlos@gmail.com' || currentUser.email === 'gustavo.webplatform@gmail.com');
+    const isAuthorized = currentUser && (currentUser.email === 'gustavo.webplatform@gmail.com');
 
     return (
         <div>

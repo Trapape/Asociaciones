@@ -28,7 +28,7 @@ const ContactComponent = () => {
         setFormStatus({ success: false, error: false, message: '' });
 
         try {
-            const response = await axios.post('http://localhost:1701/email-contact', formData);
+            const response = await axios.post('http://trapape.api:1701/email-contact', formData);
             setFormStatus({ success: true, error: false, message: '¡Mensaje enviado exitosamente!' });
             setFormData({ name: '', email: '', subject: '', message: '' });
         } catch (error) {

@@ -30,7 +30,7 @@ const TeamCardComponent = ({ nombre, zona, imgSrc, email }) => {
 
     const handleSendEmail = async () => {
         try {
-          const response = await fetch('http://localhost:1701/send-email-contact', {
+          const response = await fetch('http://trapape.api:1701/send-email-contact', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

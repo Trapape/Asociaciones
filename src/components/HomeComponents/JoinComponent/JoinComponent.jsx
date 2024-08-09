@@ -26,7 +26,7 @@ const JoinComponent = () => {
         event.preventDefault();
 
         try {
-            const response = await fetch('http://localhost:1701/send-form', {
+            const response = await fetch('http://trapape.api:1701/send-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
