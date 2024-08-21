@@ -8,10 +8,18 @@ import { faFacebookF, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { Carousel } from 'react-bootstrap';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import TeamComponent from '../../components/AboutComponents/TeamComponent/TeamComponent';
-import imgTeam1 from './../../assets/img/GERARDO-GONZALES-HIDALGO.jpg'
-import imgTeam2 from './../../assets/img/team-2.jpg'
-import imgTeam3 from './../../assets/img/team-3.jpg'
-import imgTeam4 from './../../assets/img/team-4.jpg'
+
+// Importar las imágenes correctamente
+import imgTeam1 from './../../assets/img/GERARDO-GONZALES-HIDALGO.jpg';
+import imgTeam2 from './../../assets/img/team-2.jpg';
+import imgTeam3 from './../../assets/img/team-3.jpg';
+import imgTeam4 from './../../assets/img/team-4.jpg';
+
+// Importar imágenes para el carrusel
+import imgCarousel1 from './../../assets/img/BlogPictures/GERARDO-GONZALES-HIDALGO-2.jpeg';
+import imgCarousel2 from './../../assets/img/BlogPictures/GERARDO-GONZALES-HIDALGO-7.jpeg';
+import imgCarousel3 from './../../assets/img/BlogPictures/GERARDO-GONZALES-HIDALGO-14.jpeg';
+
 import './BlogComponent.css';
 
 const BlogScreen = () => {
@@ -81,13 +89,13 @@ const BlogScreen = () => {
           <h2>Galería de Imágenes</h2>
           <Carousel interval={3000} controls={false} indicators={false}>
             <Carousel.Item>
-              <img className="d-block w-100" src="src\assets\img\BlogPictures\GERARDO-GONZALES-HIDALGO-2.jpeg" alt="Descripción de la imagen 1" />
+              <img className="d-block w-100" src={imgCarousel1} alt="Descripción de la imagen 1" />
             </Carousel.Item>
             <Carousel.Item>
-              <img className="d-block w-100" src="src\assets\img\BlogPictures\GERARDO-GONZALES-HIDALGO-7.jpeg" alt="Descripción de la imagen 2" />
+              <img className="d-block w-100" src={imgCarousel2} alt="Descripción de la imagen 2" />
             </Carousel.Item>
             <Carousel.Item>
-              <img className="d-block w-100" src="src\assets\img\BlogPictures\GERARDO-GONZALES-HIDALGO-14.jpeg" alt="Descripción de la imagen 3" />
+              <img className="d-block w-100" src={imgCarousel3} alt="Descripción de la imagen 3" />
             </Carousel.Item>
           </Carousel>
         </section>
@@ -112,57 +120,54 @@ const BlogScreen = () => {
         </section>
         <h2 className="text-center text-primary">Delegados Actuales</h2>
         <div className="container-fluid pt-5">
-        
-            <div className="container">
-                <div className="row">
-                
-                <TeamComponent
-                    name="Gerardo Gonzales García"
-                    role="Delegado Estatal de Hidalgo"
-                    imgSrc={imgTeam1}
-                    socialLinks={[
-                    { platform: 'twitter', url: '#' },
-                    { platform: 'facebook-f', url: '#' },
-                    { platform: 'linkedin-in', url: '#' },
-                    { platform: 'instagram', url: '#' },
-                    ]}
-                />
-                <TeamComponent
-                    name="Guillermo Gómez "
-                    role="Delegado de Morelos"
-                    imgSrc={imgTeam2}
-                    socialLinks={[
-                    { platform: 'twitter', url: '#' },
-                    { platform: 'facebook-f', url: '#' },
-                    { platform: 'linkedin-in', url: '#' },
-                    { platform: 'instagram', url: '#' },
-                    ]}
-                />
-                   <TeamComponent
-                    name="Jorge Martínez"
-                    role="Delegado de la Zona Sur (Mérida, Yucatán)"
-                    imgSrc={imgTeam2}
-                    socialLinks={[
-                    { platform: 'twitter', url: '#' },
-                    { platform: 'facebook-f', url: '#' },
-                    { platform: 'linkedin-in', url: '#' },
-                    { platform: 'instagram', url: '#' },
-                    ]}
-                />
-                   <TeamComponent
-                    name="Jorge Martínez"
-                    role="Delegado de la Zona Sur (Mérida, Yucatán)"
-                    imgSrc={imgTeam2}
-                    socialLinks={[
-                    { platform: 'twitter', url: '#' },
-                    { platform: 'facebook-f', url: '#' },
-                    { platform: 'linkedin-in', url: '#' },
-                    { platform: 'instagram', url: '#' },
-                    ]}
-                />
-                
-                </div>
+          <div className="container">
+            <div className="row">
+              <TeamComponent
+                name="Gerardo Gonzales García"
+                role="Delegado Estatal de Hidalgo"
+                imgSrc={imgTeam1}
+                socialLinks={[
+                  { platform: 'twitter', url: '#' },
+                  { platform: 'facebook-f', url: '#' },
+                  { platform: 'linkedin-in', url: '#' },
+                  { platform: 'instagram', url: '#' },
+                ]}
+              />
+              <TeamComponent
+                name="Guillermo Gómez"
+                role="Delegado de Morelos"
+                imgSrc={imgTeam2}
+                socialLinks={[
+                  { platform: 'twitter', url: '#' },
+                  { platform: 'facebook-f', url: '#' },
+                  { platform: 'linkedin-in', url: '#' },
+                  { platform: 'instagram', url: '#' },
+                ]}
+              />
+              <TeamComponent
+                name="Jorge Martínez"
+                role="Delegado de la Zona Sur (Mérida, Yucatán)"
+                imgSrc={imgTeam2}
+                socialLinks={[
+                  { platform: 'twitter', url: '#' },
+                  { platform: 'facebook-f', url: '#' },
+                  { platform: 'linkedin-in', url: '#' },
+                  { platform: 'instagram', url: '#' },
+                ]}
+              />
+              <TeamComponent
+                name="Jorge Martínez"
+                role="Delegado de la Zona Sur (Mérida, Yucatán)"
+                imgSrc={imgTeam2}
+                socialLinks={[
+                  { platform: 'twitter', url: '#' },
+                  { platform: 'facebook-f', url: '#' },
+                  { platform: 'linkedin-in', url: '#' },
+                  { platform: 'instagram', url: '#' },
+                ]}
+              />
             </div>
+          </div>
         </div>
       </div>
 

@@ -25,7 +25,7 @@ const app = express();
 
 // Usar CORS con configuraciones personalizadas
 app.use(cors({
-  origin: 'http://localhost:5173', // Reemplaza con la URL de tu frontend
+  origin: 'https://develop.d3m311z1kmnivw.amplifyapp.com', // Reemplaza con la URL de tu frontend
   methods: ['GET', 'POST'], // Métodos permitidos
   allowedHeaders: ['Content-Type'] // Headers permitidos
 }));
@@ -49,15 +49,30 @@ const transporter = nodemailer.createTransport({
 
 // Ruta para procesar la solicitud
 app.get('/procesar-solicitud', async (req, res) => {
-  const { nombre, email } = req.query;
-  const password = generatePassword();
+  const { nombre, email, cargo, asociacion, telefono, ciudad, motivo, servicio } = req.query;
+  const password = generatePassword(); // Asegúrate de tener esta función definida
 
   try {
+    // Crear usuario en Firebase Authentication
     await admin.auth().createUser({
       email: email,
       password: password,
     });
 
+    // Guardar el usuario en Firestore
+    await db.collection('UsersWebSite').add({
+      nombre: nombre,
+      email: email,
+      cargo: cargo,
+      asociacion: asociacion,
+      telefono: telefono,
+      ciudad: ciudad,
+      motivo: motivo,
+      servicio: servicio,
+      fechaRegistro: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    // Enviar correo
     const mailOptions = {
       from: '"Your Company" <gustavo.webplatform@gmail.com>',
       to: email,
@@ -69,6 +84,7 @@ app.get('/procesar-solicitud', async (req, res) => {
     const info = await transporter.sendMail(mailOptions);
     console.log('Message sent: %s', info.messageId);
 
+    // Enviar respuesta
     res.send(`
       <!DOCTYPE html>
       <html lang="es">
@@ -141,7 +157,6 @@ app.get('/procesar-solicitud', async (req, res) => {
     }
   }
 });
-
 // Nueva ruta para enviar correos a través de /send-email-contact
 app.post('/send-email-contact', async (req, res) => {
     const { name, email, message } = req.body;
@@ -282,59 +297,60 @@ app.post('/send-form', (req, res) => {
               }
           </style>
       </head>
-      <body>
-          <div class="container">
-              <div class="card">
-                  <div class="header">
-                      <h1>Solicitud de Registro de la Plataforma Web</h1>
-                  </div>
-                  <div class="content">
-                      <table>
-                          <tr>
-                              <th>Nombre</th>
-                              <td>${nombre}</td>
-                          </tr>
-                          <tr>
-                              <th>Cargo</th>
-                              <td>${cargo}</td>
-                          </tr>
-                          <tr>
-                              <th>Compañía</th>
-                              <td>${asociacion}</td>
-                          </tr>
-                          <tr>
-                              <th>Teléfono</th>
-                              <td>${telefono}</td>
-                          </tr>
-                          <tr>
-                              <th>Correo Electrónico</th>
-                              <td>${email}</td>
-                          </tr>
-                          <tr>
-                              <th>Ciudad</th>
-                              <td>${ciudad}</td>
-                          </tr>
-                          <tr>
-                              <th>Motivo</th>
-                              <td>${motivo}</td>
-                          </tr>
-                          <tr>
-                              <th>Servicio</th>
-                              <td>${servicio}</td>
-                          </tr>
-                      </table>
-                      <div class="button-container">
-                          <a href="http://trapape.api:1701/procesar-solicitud?nombre=${nombre}&email=${email}" class="button">Procesar Solicitud</a>
-                          <a href="http://main.d524xsx7dlqze.amplifyapp.com/rechazar-solicitud" class="button button-reject">Rechazar Solicitud</a>
-                      </div>
-                  </div>
-              </div>
-              <div class="footer">
-                  <p>&copy; 2024 MiEmpresa. Todos los derechos reservados.</p>
-                  <div class="truck-design"></div>
-              </div>
-          </div>
-      </body>
+     <body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>Solicitud de Registro de la Plataforma Web</h1>
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <th>Nombre</th>
+                        <td>${nombre}</td>
+                    </tr>
+                    <tr>
+                        <th>Cargo</th>
+                        <td>${cargo}</td>
+                    </tr>
+                    <tr>
+                        <th>Compañía</th>
+                        <td>${asociacion}</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono</th>
+                        <td>${telefono}</td>
+                    </tr>
+                    <tr>
+                        <th>Correo Electrónico</th>
+                        <td>${email}</td>
+                    </tr>
+                    <tr>
+                        <th>Ciudad</th>
+                        <td>${ciudad}</td>
+                    </tr>
+                    <tr>
+                        <th>Motivo</th>
+                        <td>${motivo}</td>
+                    </tr>
+                    <tr>
+                        <th>Servicio</th>
+                        <td>${servicio}</td>
+                    </tr>
+                </table>
+                <div class="button-container">
+                    <a href="http://44.202.165.45:1701/procesar-solicitud?nombre=${encodeURIComponent(nombre)}&cargo=${encodeURIComponent(cargo)}&asociacion=${encodeURIComponent(asociacion)}&telefono=${encodeURIComponent(telefono)}&email=${encodeURIComponent(email)}&ciudad=${encodeURIComponent(ciudad)}&motivo=${encodeURIComponent(motivo)}&servicio=${encodeURIComponent(servicio)}" class="button">Procesar Solicitud</a>
+                    <a href="http://main.d524xsx7dlqze.amplifyapp.com/rechazar-solicitud" class="button button-reject">Rechazar Solicitud</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2024 MiEmpresa. Todos los derechos reservados.</p>
+            <div class="truck-design"></div>
+        </div>
+    </div>
+</body>
+
       </html>
       `,
   };

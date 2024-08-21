@@ -49,7 +49,7 @@ const CreatePostModal = ({ onClose }) => {
       let imageUrl = '';
 
       if (image) {
-        const imageRef = ref(getStorage(), `images/${image.name}`);
+        const imageRef = ref(getStorage(), `imagesWebSite/${image.name}`);
         await uploadBytes(imageRef, image);
         imageUrl = await getDownloadURL(imageRef);
       }

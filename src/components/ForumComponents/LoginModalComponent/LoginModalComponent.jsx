@@ -8,7 +8,7 @@ import { UserContext } from '../../../../backend/config/UserContext';
 
 const LoginModalComponent = ({ isOpen, onClose }) => {
   const { user, setUser } = useContext(UserContext);
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');           
   const [password, setPassword] = useState('');
 
   useEffect(() => {
